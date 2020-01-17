@@ -22,11 +22,9 @@ client.on('message', message => {
         case 'ping':
             ping(message);
             break;
-        /*
         case 'gel':
             gel(message);
             break;
-        */
         case 'çıkar beni':
             cikar(message);
             break;
@@ -101,7 +99,7 @@ function gezdir(message)
         user.setVoiceChannel(element);
     })
 
-    user.setVoiceChannel(firstChannel)    ;
+    user.setVoiceChannel(firstChannel);
 }
 
 function gezdirAll(message)

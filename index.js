@@ -68,6 +68,8 @@ function gezdir(message)
     
 
 client.login(process.env.TOKEN)
-    .catch(() => {
+    .catch( err => {
         client.login(token)
+
+        console.error(err)
     })

@@ -1,14 +1,22 @@
 {
   "name": "discordbot",
   "version": "1.0.0",
-  "description": "",
-  "main": "  ",
+  "description": "Just another discord bot",
+  "main": "index.js",
+  "engines": {
+    "node": "12.x",
+    "npm": "*"
+},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ."
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ANamelessGhoul/AdamBot.git"
+  },
   "author": "Tecelli",
-  "license": "ISC",
+  "license": "GNU GPLv2",
   "dependencies": {
     "discord.js": "^11.5.1"
   }

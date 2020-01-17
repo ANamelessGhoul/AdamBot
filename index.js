@@ -25,6 +25,9 @@ client.on('message', message => {
         case 'gel':
             gel(message);
             break;
+        case 'git':
+            git(message.member.voiceChannel);
+            break;
         case 'çıkar beni':
             cikar(message);
             break;
@@ -69,6 +72,10 @@ function gel(message){
 
     member.voiceChannel.join();
 
+}
+
+function git(voiceChannel){
+    voiceChannel.leave();
 }
 
 function cikar(message){

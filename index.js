@@ -38,7 +38,7 @@ function help(member){
     const embed = new Discord.RichEmbed()
       .setTitle('AdamBot Guide:')
       .setColor(0xFF0000)
-      .setDescription('Bot call prefix: "Adam!"\n"gel": Basic ping function\n"çıkar beni": Removes you from voice channel\n"gezdir beni": Scrolls you through all voice channels');
+      .setDescription('Bot call prefix: "'+ process.env.PREFIX +'"\n"gel": Basic ping function\n"çıkar beni": Removes you from voice channel\n"gezdir beni": Scrolls you through all voice channels');
 
     member.send(embed);
 

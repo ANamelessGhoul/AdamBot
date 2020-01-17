@@ -1,8 +1,10 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 
-const token = 'NjY3MzMyNjk4NDY0ODQ1ODI1.XiBNag.05SyXVJFKOsh5GVK99EyvrTkRMs' //release
-//const token = 'NjY3NjQwMDM5NjI2MjQ0MTIx.XiFqXA.yQPRpa5Z_ZlxEXzSzaoM-8FT_Yo' //beta
+
+const token = 'NjY3NjQwMDM5NjI2MjQ0MTIx.XiFqXA.yQPRpa5Z_ZlxEXzSzaoM-8FT_Yo' //beta
+//const token = 'NjY3MzMyNjk4NDY0ODQ1ODI1.XiBNag.05SyXVJFKOsh5GVK99EyvrTkRMs' //release
+
 
 
 const botPrefix = 'Adam!'
@@ -65,4 +67,7 @@ function gezdir(message)
 }
     
 
-client.login(token);
+client.login(process.env.TOKEN)
+    .catch(() => {
+        client.login(token)
+    })

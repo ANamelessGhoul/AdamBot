@@ -109,6 +109,7 @@ function gezdirAll(message)
     message.reply('Yok sana!');
     return;
 
+    /*
     var user = message.member;
 
     if(!user.voiceChannel)
@@ -131,6 +132,7 @@ function gezdirAll(message)
     allUsers.forEach(singleUser => {
         singleUser.setVoiceChannel(firstChannel);
     })  
+    */
 }
     
 

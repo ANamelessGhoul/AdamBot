@@ -19,6 +19,9 @@ client.on('message', message => {
     const command = message.content.split(' ').slice(1).join(' ');
 
     switch (command) {
+        case 'help':
+            help(message.member)
+            break;
         case 'gel':
             gel(message)
             break;
@@ -32,6 +35,16 @@ client.on('message', message => {
             break;
     }
 })
+
+function help(member){
+    const embed = new Discord.RichEmbed()
+      .setTitle('AdamBot Guide:')
+      .setColor(0xFF0000)
+      .setDescription('Bot call prefix: "Adam!"\n"gel": Basic ping function\n"çıkar beni": Removes you from voice channel\n"gezdir beni": Scrolls you through all voice channels');
+
+    member.send(embed);
+
+}
 
 function gel(message){
     message.reply('Siktir!')
@@ -67,7 +80,7 @@ function gezdir(message)
 }
     
 
-client.login(process.env.TOKEN.toString())
+client.login(process.env.TOKEN)
     .catch( err => {
         client.login(token)
 

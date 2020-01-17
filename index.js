@@ -75,7 +75,8 @@ function gel(message){
 }
 
 function git(voiceChannel){
-    voiceChannel.leave();
+    if(voiceChannel)
+        voiceChannel.leave();
 }
 
 function cikar(message){

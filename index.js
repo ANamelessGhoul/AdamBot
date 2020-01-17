@@ -1,21 +1,18 @@
-const Discord = require('discord.js')
-const client = new Discord.Client()
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const dotenv = require('dotenv');
+dotenv.config();
 
-
-const token = 'NjY3NjQwMDM5NjI2MjQ0MTIx.XiFqXA.yQPRpa5Z_ZlxEXzSzaoM-8FT_Yo' //beta
-//const token = 'NjY3MzMyNjk4NDY0ODQ1ODI1.XiBNag.05SyXVJFKOsh5GVK99EyvrTkRMs' //release
-
-
-
-const botPrefix = 'Adam!'
 
 client.on('ready', () => {
+    if(!(process.env.PREFIX != undefined))
+        console.error('No prefix set')
+
     console.log('Bot online!')
 })
 
 client.on('message', message => {
-    if (!message.content.startsWith(botPrefix) || !message.guild) return;
-    //const command = message.content.split(' ')[1];
+    if (!message.content.startsWith(process.env.PREFIX) || !message.guild) return;
     const command = message.content.split(' ').slice(1).join(' ');
 
     switch (command) {
@@ -32,6 +29,7 @@ client.on('message', message => {
             gezdir(message)
             break;
         default:
+            console.log('Unrecognized command: ' + command)
             break;
     }
 })
@@ -81,8 +79,3 @@ function gezdir(message)
     
 
 client.login(process.env.TOKEN)
-    .catch( err => {
-        client.login(token)
-
-        console.error(err)
-    })

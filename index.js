@@ -37,7 +37,7 @@ client.on('message', message => {
             gezdirAll(message);
             break;
         default:
-            console.log('Unrecognized command: ' + command);
+            message.reply('Öyle bişey yok be yarrak!')
             break;
     }
 })

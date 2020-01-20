@@ -11,19 +11,6 @@ client.on('ready', () => {
     console.log('Bot online!');
 })
 
-client.on('voiceStateUpdate', (oldMember, newMember) =>{
-    if(!(newMember.voiceChannelID)) return;
-    
-    newMember.voiceChannel.join();
-
-    var channel = newMember.guild.channels.find(ch => ch.name === "bot-spam");
-
-    channel.send("!p bruh");
-
-    console.log(oldMember);
-    console.log(newMember);
-})
-
 client.on('message', message => {
     if (!message.content.startsWith(process.env.PREFIX) || !message.guild) return;
     const command = message.content.split(' ').slice(1).join(' ');

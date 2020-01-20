@@ -80,7 +80,8 @@ function gel(message){
         message.reply('Geldim!');
         const dispatcher = connection.playFile('./music/test.m4a');
 
-        dispatcher.on('end', () => {
+        dispatcher.on('end', async () => {
+            await sleep(2000);
             vc.leave()
           });
           

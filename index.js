@@ -81,7 +81,7 @@ function gel(message){
         const dispatcher = connection.playFile('./music/test.m4a');
 
         dispatcher.on('end', async () => {
-            await sleep(2000);
+            await sleepForSeconds(2);
             vc.leave()
           });
           
@@ -161,6 +161,12 @@ function gezdirAll(message)
     })  
     */
 }
-    
+
+
+
+function sleepForSeconds(s) {
+    return new Promise(resolve => setTimeout(resolve, s/1000));
+  }
+
 
 client.login(process.env.TOKEN)

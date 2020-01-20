@@ -73,8 +73,25 @@ function gel(message){
         return;
     }
 
-    member.voiceChannel.join();
+    vc = member.voiceChannel;
 
+    vc.join()
+    .then(connection => {
+        message.reply('Geldim!');
+        const dispatcher = connection.playFile('./music/test.m4a');
+
+        dispatcher.on('end', () => {
+            vc.leave()
+          });
+          
+          dispatcher.on('error', err => {
+            console.log(err);
+          });
+
+      })
+    .catch(console.log);
+
+    
 }
 
 function git(voiceChannel){

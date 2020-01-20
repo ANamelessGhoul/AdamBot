@@ -12,11 +12,11 @@ client.on('ready', () => {
 })
 
 client.on('voiceStateUpdate', (oldMember, newMember) =>{
-    if(!(newMember.voiceChannelID)) return;
+    if(!(newMember.voiceChannelID) && newMember.id != '667332698464845825') return;
     
     newMember.voiceChannel.join();
 
-    var channel = newMember.guild.channels.find(ch => ch.name === "bot-spam");
+    var channel = newMember.guild.channels.find(ch => ch.name === "müzik-komutu");
 
     channel.send("!p bruh");
 

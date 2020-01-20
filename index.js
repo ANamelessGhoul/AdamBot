@@ -11,19 +11,6 @@ client.on('ready', () => {
     console.log('Bot online!');
 })
 
-client.on('voiceStateUpdate', (oldMember, newMember) =>{
-    if(!(newMember.voiceChannelID) && newMember.id != '667332698464845825') return;
-    
-    newMember.voiceChannel.join();
-
-    var channel = newMember.guild.channels.find(ch => ch.name === "müzik-komutu");
-
-    channel.send("!p bruh");
-
-    console.log(oldMember);
-    console.log(newMember);
-})
-
 client.on('message', message => {
     if (!message.content.startsWith(process.env.PREFIX) || !message.guild) return;
     const command = message.content.split(' ').slice(1).join(' ');
@@ -86,8 +73,25 @@ function gel(message){
         return;
     }
 
-    member.voiceChannel.join();
+    vc = member.voiceChannel;
 
+    vc.join()
+    .then(connection => {
+        message.reply('Geldim!');
+        const dispatcher = connection.playFile('./music/test.m4a');
+
+        dispatcher.on('end', () => {
+            vc.leave()
+          });
+          
+          dispatcher.on('error', err => {
+            console.log(err);
+          });
+
+      })
+    .catch(console.log);
+
+    
 }
 
 function git(voiceChannel){

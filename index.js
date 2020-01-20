@@ -49,9 +49,12 @@ function help(member){
       .setColor(0xFF0000)
       .setDescription('Bot call prefix: "'+ process.env.PREFIX +`"\n
       "ping": Basic ping function\n
-      "gel": Basic ping function\n
+      "gel": Bot joins your voice channel\n
+      "git": Bot leaves voice channel\n
       "çıkar beni": Removes you from voice channel\n
-      "gezdir beni": Scrolls you through all voice channels'
+      "gezdir beni": Scrolls you through all voice channels\n
+      "gezdir bizi": Scrolls everyone in the voice channel through all the voice channels
+      (removed becuse it was too OP)\n
       `);
 
     member.send(embed);

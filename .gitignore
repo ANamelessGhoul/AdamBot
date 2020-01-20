@@ -75,3 +75,6 @@ jspm_packages
 
 # Heroku Env
 .env
+ffprobe.exe
+ffmpeg.exe
+ffplay.exe

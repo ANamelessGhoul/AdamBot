@@ -29,7 +29,8 @@ client.on('disconnect', () => console.log('I just disconnected, making sure you 
 client.on('reconnecting', () => console.log('I am reconnecting now!'));
 
 
-
+var serverVolume = 10;
+var musicDispatcher;
 
 client.on('message', async message => {
     if (!message.content.startsWith(process.env.PREFIX) || !message.guild || message.author.bot) return;
@@ -62,6 +63,21 @@ client.on('message', async message => {
             break;
         case 'play':
             playSong(message, params);
+            break;
+        case 'volume':
+            const input = parseInt(params.join(''));
+            if(!isNaN(input))
+            {
+                serverVolume = input;
+                message.channel.send(`Volume set to ${serverVolume}/10`)
+                .then(() => musicDispatcher.setVolumeLogarithmic(serverVolume / 10))
+                .catch(err => message.channel.send(err));
+
+            }
+            else
+            {
+                message.channel.send(`Volume is ${serverVolume}/10`)
+            }
             break;
         default:
             message.reply('Öyle bişey yok be yarrak!')
@@ -218,7 +234,7 @@ async function playSong(message, params)
 }
 
 async function handleVideo(video, message, voiceChannel){
-	console.log(video);
+	//console.log(video);
 	const song = {
 		id: video.id,
 		title: Util.escapeMarkdown(video.title),
@@ -226,12 +242,13 @@ async function handleVideo(video, message, voiceChannel){
 	};
 	try {
 		var connection = await voiceChannel.join();
-        const dispatcher = connection.playStream(ytdl(song.url))
+         musicDispatcher = connection.playStream(ytdl(song.url))
             .on('end', reason => {
-			if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
-			else console.log(reason);
-		})
-        .on('error', error => console.error(error));
+			    if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
+			    else console.log(reason);
+		    })
+            .on('error', error => console.error(error));
+        musicDispatcher.setVolumeLogarithmic(serverVolume / 10);
         return message.channel.send(`🎶 Start playing: **${song.title}**`);
 	} catch (error) {
 		console.error(`I could not join the voice channel: ${error}`);

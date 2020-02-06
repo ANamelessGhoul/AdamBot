@@ -217,20 +217,36 @@ async function playSong(message, params)
         return message.channel.send('I cannot speak in this voice channel, make sure I have the proper permissions!');
     }
 
-    const searchString = params.join(' ');
+    var video;
 
-    message.channel.send(`Searching for "${searchString}"`)
+    try {
+        video = await youtube.getVideo(params[0])
+    } 
+    catch (error) {
+        try {
+            const searchString = params.join(' ');
+
+            message.channel.send(`Searching for "${searchString}"`)
+
+            await youtube.searchVideos(searchString, 1)
+            .then(results => {
+                video = results[0];
+                message.channel.send(`Found: ${video.title}\nURL: ${video.shortURL}`)
+                })
+            .catch(console.log)
+        }
+        catch (err) {
+            console.error(err);
+            message.channel.send('Could not find search result!');
+            return;
+        }
+    }
+        
+    
+    return handleVideo(video, message, voiceChannel)
+    .catch(err => console.error(err));
 
 
-    await youtube.searchVideos(searchString, 1)
-    .then(results => {
-        const video = results[0];
-        message.channel.send(`Found: ${video.title}\nURL: ${video.shortURL}`)
-        handleVideo(video, message, voiceChannel)
-        })
-    .catch(console.log)
-
-    //message.reply(videos);
 }
 
 async function handleVideo(video, message, voiceChannel){

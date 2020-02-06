@@ -1,14 +1,15 @@
 const Discord = require('discord.js');
+const dotenv = require('dotenv');
+const YouTube = require('simple-youtube-api');
+const ytdl = require('ytdl-core');
+
 const client = new Discord.Client();
 const Util = Discord.Util;
 
-const dotenv = require('dotenv');
 dotenv.config();
 
-const YouTube = require('simple-youtube-api');
 const youtube = new YouTube(process.env.YOUTUBE_API_KEY);
 
-const ytdl = require('ytdl-core');
 
 
 
@@ -40,12 +41,14 @@ client.on('message', async message => {
 
 
     switch (command) {
+        case 'yardım':
         case 'help':
             help(message.member);
             break;
         case 'ping':
             ping(message);
             break;
+        case 'siktir':
         case 'gel':
             gel(message);
             break;
@@ -61,23 +64,13 @@ client.on('message', async message => {
         case 'gezdirbizi':
             gezdirAll(message);
             break;
+        case 'çal':
+        case 'p':
         case 'play':
             playSong(message, params);
             break;
         case 'volume':
-            const input = parseInt(params.join(''));
-            if(!isNaN(input))
-            {
-                serverVolume = input;
-                message.channel.send(`Volume set to ${serverVolume}/10`)
-                .then(() => musicDispatcher.setVolumeLogarithmic(serverVolume / 10))
-                .catch(err => message.channel.send(err));
-
-            }
-            else
-            {
-                message.channel.send(`Volume is ${serverVolume}/10`)
-            }
+            setVolume(message, params);
             break;
         default:
             message.reply('Öyle bişey yok be yarrak!')
@@ -261,7 +254,9 @@ async function handleVideo(video, message, voiceChannel){
          musicDispatcher = connection.playStream(ytdl(song.url))
             .on('end', reason => {
 			    if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
-			    else console.log(reason);
+                else console.log(reason);
+                
+                voiceChannel.leave();
 		    })
             .on('error', error => console.error(error));
         musicDispatcher.setVolumeLogarithmic(serverVolume / 10);
@@ -272,6 +267,22 @@ async function handleVideo(video, message, voiceChannel){
     }
 }
 
+
+function setVolume(message, params){
+    const input = parseInt(params.join(''));
+    if(!isNaN(input))
+    {
+        serverVolume = input;
+        message.channel.send(`Volume set to ${serverVolume}/10`)
+        .then(() => musicDispatcher.setVolumeLogarithmic(serverVolume / 10))
+        .catch(err => message.channel.send(err));
+
+    }
+    else
+    {
+        message.channel.send(`Volume is ${serverVolume}/10`)
+    }
+}
 
 
 

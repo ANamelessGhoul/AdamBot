@@ -168,33 +168,35 @@ function gezdir(message)
 
 function gezdirAll(message)
 {
-    message.reply('Yok sana!');
-    return;
-
-    /*
-    var user = message.member;
-
-    if(!user.voiceChannel)
-    {
-        message.reply('Girmeden bir yere nasıl gezdireyim be sizi!');
+    if(!(process.env.GEZDIR_BIZI === 'true')){
+        message.reply('Yok sana!');
         return;
-    } 
-
-    var firstChannel = user.voiceChannel;
-
-    var allUsers = user.voiceChannel.members;
-
-    message.guild.channels.filter(g => g.type == 'voice').forEach(element => {
-        allUsers.forEach(singleUser => {
-            singleUser.setVoiceChannel(element);
-        })
+    }
+    else{
         
-    })
+        var user = message.member;
 
-    allUsers.forEach(singleUser => {
-        singleUser.setVoiceChannel(firstChannel);
-    })  
-    */
+        if(!user.voiceChannel)
+        {
+            message.reply('Girmeden bir yere nasıl gezdireyim be sizi!');
+            return;
+        } 
+
+        var firstChannel = user.voiceChannel;
+
+        var allUsers = user.voiceChannel.members;
+
+        message.guild.channels.filter(g => g.type == 'voice').forEach(element => {
+            allUsers.forEach(singleUser => {
+                singleUser.setVoiceChannel(element);
+            })
+
+        })
+
+        allUsers.forEach(singleUser => {
+            singleUser.setVoiceChannel(firstChannel);
+        })  
+    }
 }
 
 

@@ -72,6 +72,8 @@ client.on('message', async message => {
         case 'volume':
             setVolume(message, params);
             break;
+	case 'test':
+	    console.log(message.member);  
         default:
             message.reply('Öyle bişey yok be yarrak!')
             break;

@@ -34,12 +34,12 @@ var serverVolume = 10;
 var musicDispatcher;
 
 client.on('message', async message => {
-    console.log(message);
+    
     if (!message.content.startsWith(process.env.PREFIX) || !message.guild || message.author.bot) return;
     const parts = message.content.split(' ');
     const command = parts[1];
     const params = parts.slice(2, parts.length);
-
+    console.log(parts);
 
     switch (command) {
         case 'yardım':
